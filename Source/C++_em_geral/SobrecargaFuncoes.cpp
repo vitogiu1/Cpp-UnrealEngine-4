@@ -1,15 +1,27 @@
 #include <iostream>
 #include "SobrecargaFuncoes.h"
 
-//Criando a função Multiplicacao int
-int Multiplicacao(int NumA, int NumB)
-{
-	return NumA * NumB;
-}
+////Criando a função Multiplicacao int
+//int Multiplicacao(int NumA, int NumB)
+//{
+//	return NumA * NumB;
+//}
+//
+////Criando a função com o mesmo nome da anterior, porém com tipo, e argumentos diferentes
+////(Sobrecarga de função)
+//float Multiplicacao(float NumA, float NumB)
+//{
+//	return NumA * NumB;
+//}
 
-//Criando a função com o mesmo nome da anterior, porém com tipo, e argumentos diferentes
-//(Sobrecarga de função)
-float Multiplicacao(float NumA, float NumB)
+//As funções acima que foram comentadas, serão substituidas pela a função de baixo, usando templates
+
+//Cria uma template da função Multiplicacao
+// T pode ser qualquer tipo de valor
+//Neste caso ele virará inteiro ou float
+//E o valor T aqui neste momento, serve como parâmetro e como valor de retorno
+template<typename T> 
+T Multiplicacao(T NumA, T NumB)
 {
 	return NumA * NumB;
 }
@@ -18,6 +30,14 @@ float Multiplicacao(float NumA, float NumB)
 using namespace std;
 int SobrecargaFuncoes_API::mainSobrecarga()
 {
+	//Definindo algumas variaveis do tipo "auto"
+	//Que faz com que o compilador "deduza" o tipo da variável
+	auto Num0 = 13;
+	auto Num1 = 5.0f;
+	auto Num2 = 5.0;
+	auto Soma = Num1 + Num2;
+	auto Result = Multiplicacao(2.0f, 3.0f);
+
 	//Definindo duas variaveis do tipo inteiro
 	int NumeroInteiroA, NumeroInteiroB;
 
@@ -37,7 +57,7 @@ int SobrecargaFuncoes_API::mainSobrecarga()
 			cin >> NumeroInteiroB; //Ele irá esperar que você insira um numero do tipo Inteiro
 
 			//Irá enviar no console o resultado da multiplicação do valor inteiro
-			cout << "Resultado da multiplicação de numeros inteiros: " << NumeroInteiroA << " e " << NumeroInteiroB << " resulta em: " << Multiplicacao(NumeroInteiroA, NumeroInteiroB) << endl;
+			cout << "Resultado da multiplicacao de numeros inteiros: " << NumeroInteiroA << " e " << NumeroInteiroB << " resulta em: " << Multiplicacao(NumeroInteiroA, NumeroInteiroB) << endl;
 		}
 		//Já se a variável "valor" for igual a dois (2) será feito a conta dos numeros do tipo float
 		else if (valor == 2)
@@ -49,8 +69,11 @@ int SobrecargaFuncoes_API::mainSobrecarga()
 			cin >> NumeroFloatB; //Ele irá esperar que você insira um numero do tipo float
 
 			//Irá enviar no console o resultado da multiplicação do valor float
-			cout << "Resultado da multiplicação de numeros float: " << NumeroFloatA << " e " << NumeroFloatB << " resulta em: " << Multiplicacao(NumeroFloatA, NumeroFloatB) << endl;
+			cout << "Resultado da multiplicacao de numeros float: " << NumeroFloatA << " e " << NumeroFloatB << " resulta em: " << Multiplicacao(NumeroFloatA, NumeroFloatB) << endl;
 		}
+
+		double Resultado = Multiplicacao(5.3, 7.5);
+		cout << "Resultado da multiplicacao: " << Resultado << endl;
 
 	return 0;
 }

@@ -1,8 +1,9 @@
-#include "ActorRotation.h"
+#include "ActorManipulating.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Engine/Engine.h"
 
 // Sets default values
 AActorRotation::AActorRotation()
@@ -60,6 +61,20 @@ AActorRotation::AActorRotation()
 void AActorRotation::BeginPlay()
 {
 	Super::BeginPlay();
+	//Testando o TArray
+	//Abaixo ele irá criar um TArray, e adicionar 5 valores a essa aray
+	TArray<int32>MyArrayUnreal; //Cria um TArray com o nome MyArrayUnreal
+	MyArrayUnreal.Add(-20);  //Adicionando o valor -20 a array
+	MyArrayUnreal.Add(30); //Adicionando o valor 30 a array
+	MyArrayUnreal.Add(-40); //Adicionando o valor -40 a array
+	MyArrayUnreal.Add(50); //Adicionando o valor 50 a array
+	MyArrayUnreal.Add(-60); //Adicionando o valor -60 a array
+
+	for (int32 element : MyArrayUnreal) //Vai pegar todos os elementos do Tarray
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, FString::Printf(TEXT(" %d "), element), false);
+		//Irá enviar na tela do jogo na unreal, todos os valores, da TArray, durante 5 segundos, na cor laranja.
+	}
 
 	//Pegando valores Randômicos
 	float RotRandom = FMath::RandRange(-90.f, 90.f); //Numero randômico do tipo float de -90 até 90
@@ -102,5 +117,4 @@ void AActorRotation::Tick(float DeltaTime)
 	//Se essa variável do tipo float for igual a zero(0) o objeto não irá girar, pois
 	// <numero> * 0 = 0
 	AddActorLocalRotation(FRotator(0.f, 50.f, 0.f) * DeltaTime * Velocidade);
-	
 }
